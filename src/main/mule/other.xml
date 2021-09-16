@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<flow name="otherFlow" doc:id="515669ac-34d5-4548-8419-cdf52cbfc8da" >
+		<set-payload value='#[{"message" : "This is a json payload"}]' doc:name="Set Payload" doc:id="6977900d-477b-4677-826b-db5ea45816ff" />
+		<ee:transform doc:name="Transform Message" doc:id="b24e9e21-d2d9-4e44-b2f9-f1a066c17b69" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="1bf01177-5fa5-46e9-a8fb-d4f0c3442a33" message="#[typeOf(payload)]"/>
+	</flow>
+</mule>

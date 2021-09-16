@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:oauth2-provider="http://www.mulesoft.org/schema/mule/oauth2-provider" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/oauth2-provider http://www.mulesoft.org/schema/mule/oauth2-provider/current/mule-oauth2-provider.xsd">
+	<flow name="oauth-pocFlow" doc:id="d5f65b6a-1aee-4406-b2c1-4071d8d77711" >
+		<http:listener doc:name="Listener" doc:id="a18155ce-c98a-4d4a-a8c4-c2f39a1a8a9c" config-ref="HTTP_Listener_config" path="/create"/>
+	</flow>
+	<flow name="oauth-pocFlow1" doc:id="e83be80a-2e1c-41b0-acd8-cd094dbcae38" >
+		<http:listener doc:name="Listener" doc:id="5e594233-fa78-47c3-bb53-f363ffdda8bd" config-ref="HTTP_Listener_config" path="/validate"/>
+		<oauth2-provider:validate-token doc:name="Validate token" doc:id="f16d88f7-15da-4768-9d7e-187ebb469041" config-ref="OAuth2_Provider_Config"/>
+	</flow>
+</mule>

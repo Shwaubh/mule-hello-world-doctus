@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd"
+>
+	<flow
+		name="dw-practiceFlow2"
+		doc:id="c9e10ba5-caa4-43ac-bdb8-5bd40f518701"
+	>
+		<ee:transform
+			doc:name="Transform Message"
+			doc:id="8c7f1404-f556-47bc-9110-7b7a02183f8f"
+		>
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+var data = readUrl("classpath://myJson.json")
+output application/json
+---
+{
+	(
+		["a", "b", "c"] map	((value, idx) -> {
+			("data " ++ (idx + 1) ):value
+		})
+	)
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow
+		name="dw-practiceFlow1"
+		doc:id="f853c7ba-d4bd-40b2-b567-2753f6618414"
+	>
+		<ee:transform
+			doc:name="Transform Message"
+			doc:id="69be2ab5-337f-43c4-b795-cbac88311aeb"
+		>
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+var myJson = {"myString" : ("hello" ++ "world")}
+var myjson2 = |2019-12-09|
+var cond = {'a':{b:1, (c:2) if 31>4}}
+// this is a comment
+output application/xml
+---
+{root : cond ++ myJson}
+
+]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+</mule>
